@@ -38,13 +38,13 @@ document.getElementById("analyze").addEventListener("click", () => {
       },
       (results) => {
         let texts = results[0].result;
-        console.log("Extracted raw texts:", texts);
+        // console.log("Extracted raw texts:", texts);
         // Limit each text to 300 chars and filter out empty/very short texts
         let processedText = texts
           .map((t) => t.slice(0, 300))
           .filter((t) => t && t.length > 10);
 
-        console.log("Processed texts (before chunking):", processedText);
+        //console.log("Processed texts (before chunking):", processedText);
 
         // Use chunkText to avoid sending too many texts at once (prevents tensor errors)
         //let chunks = chunkText(processedText, 3);
@@ -53,7 +53,7 @@ document.getElementById("analyze").addEventListener("click", () => {
         let processed = 0;
 
         function analyzeEmotion(textArr, idx) {
-          console.log(`Sending batch ${idx}:`, textArr);
+          // console.log(`Sending batch ${idx}:`, textArr);
           chrome.runtime.sendMessage(
             { action: "analyze", text: textArr },
             (response) => {
@@ -126,5 +126,24 @@ document.getElementById("analyze").addEventListener("click", () => {
         }
       }
     );
+  });
+});
+
+
+document.getElementById("saveKey").addEventListener("click", () => {
+  const key = document.getElementById("apiKeyInput").value;
+  chrome.storage.local.set({ HF_API_KEY: key }, () => {
+    alert("API Key saved!");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  chrome.storage.local.get("HF_API_KEY", (data) => {
+    if (data.HF_API_KEY) {
+      const section = document.getElementById("apiKeySection");
+      if (section) {
+        section.style.display = "none";
+      }
+    }
   });
 });
