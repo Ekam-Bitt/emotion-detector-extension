@@ -1,0 +1,303 @@
+:root {
+  --primary-color: #6e8efb;
+  --secondary-color: #a777e3;
+  --positive-color: #4caf50;
+  --negative-color: #f44336;
+  --neutral-color: #ffc107;
+  --background-color: #f9f9f9;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --border-color: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  width: 500px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  padding: 15px;
+}
+
+header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  width: 100%;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.api-section {
+  background-color: var(--card-bg);
+  padding: 15px;
+  margin: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  gap: 10px;
+}
+
+#apiKeyInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#saveKey {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+#saveKey:hover {
+  background-color: #5d7ce0;
+}
+
+.analyze-btn {
+  display: block;
+  width: calc(100% - 30px);
+  margin: 10px 15px;
+  padding: 12px;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.analyze-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chart-container {
+  background-color: var(--card-bg);
+  margin: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative;
+  min-height: 200px;
+}
+
+#sentimentChart {
+  width: 100%;
+  height: 200px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.comments-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fafafa;
+}
+
+.comment {
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment:last-child {
+  margin-bottom: 0;
+}
+
+.positive-comment {
+  border-left: 4px solid var(--positive-color);
+}
+
+.negative-comment {
+  border-left: 4px solid var(--negative-color);
+}
+
+.neutral-comment {
+  border-left: 4px solid var(--neutral-color);
+}
+
+.sentiment-bar {
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  margin: 5px 0;
+  overflow: hidden;
+}
+
+.sentiment-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.positive-fill {
+  background-color: var(--positive-color);
+}
+
+.negative-fill {
+  background-color: var(--negative-color);
+}
+
+.neutral-fill {
+  background-color: var(--neutral-color);
+}
+
+.top-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-top: 5px;
+  color: white;
+}
+
+.top-positive {
+  background-color: var(--positive-color);
+}
+
+.top-negative {
+  background-color: var(--negative-color);
+}
+
+.top-neutral {
+  background-color: var(--neutral-color);
+}
+
+.summary {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+  text-align: center;
+}
+
+.summary-item {
+  flex: 1;
+  padding: 10px;
+}
+
+.summary-number {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.summary-positive .summary-number {
+  color: var(--positive-color);
+}
+
+.summary-negative .summary-number {
+  color: var(--negative-color);
+}
+
+.summary-neutral .summary-number {
+  color: var(--neutral-color);
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #666;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.filter-btn.active {
+  color: white;
+}
+
+.filter-btn[data-filter="all"].active {
+  background-color: var(--primary-color);
+}
+
+.filter-btn[data-filter="positive"].active {
+  background-color: var(--positive-color);
+}
+
+.filter-btn[data-filter="negative"].active {
+  background-color: var(--negative-color);
+}
+
+.filter-btn[data-filter="neutral"].active {
+  background-color: var(--neutral-color);
+}
+
+.sentiment-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 3px;
+}
+
+.comment-text {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.no-comments {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+}

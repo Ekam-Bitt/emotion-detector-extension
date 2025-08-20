@@ -4,7 +4,7 @@ function extractText() {
   return Array.from(elements)
     .map((el) => el.innerText)
     .filter(Boolean)
-    .slice(0, 20); // limit for MVP
+    .slice(0, 50); // limit for MVP
 }
 
 // Send extracted text to background for analysis

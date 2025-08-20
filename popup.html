@@ -2,26 +2,215 @@
 <html>
   <head>
     <title>Emotion Detector</title>
+    <script src="libs/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
     <style>
-      body {
-        font-family: Arial, sans-serif;
+      /* Additional styles for the updated UI */
+      .hidden {
+        display: none !important;
+      }
+
+      .comments-container {
+        max-height: 300px;
+        overflow-y: auto;
+        margin-top: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: #fafafa;
+      }
+
+      .comment {
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 6px;
+        background-color: white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .comment:last-child {
+        margin-bottom: 0;
+      }
+
+      .positive-comment {
+        border-left: 4px solid #4caf50;
+      }
+
+      .negative-comment {
+        border-left: 4px solid #f44336;
+      }
+
+      .neutral-comment {
+        border-left: 4px solid #ffc107;
+      }
+
+      .sentiment-bar {
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        margin: 5px 0;
+        overflow: hidden;
+      }
+
+      .sentiment-fill {
+        height: 100%;
+        border-radius: 4px;
+      }
+
+      .positive-fill {
+        background-color: #4caf50;
+      }
+
+      .negative-fill {
+        background-color: #f44336;
+      }
+
+      .neutral-fill {
+        background-color: #ffc107;
+      }
+
+      .top-badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        margin-top: 5px;
+        color: white;
+      }
+
+      .top-positive {
+        background-color: #4caf50;
+      }
+
+      .top-negative {
+        background-color: #f44336;
+      }
+
+      .top-neutral {
+        background-color: #ffc107;
+      }
+
+      .summary {
+        display: flex;
+        justify-content: space-around;
+        margin: 15px 0;
+        text-align: center;
+      }
+
+      .summary-item {
+        flex: 1;
         padding: 10px;
       }
-      pre {
-        background: #f4f4f4;
-        padding: 10px;
-        border-radius: 8px;
+
+      .summary-number {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .summary-positive .summary-number {
+        color: #4caf50;
+      }
+
+      .summary-negative .summary-number {
+        color: #f44336;
+      }
+
+      .summary-neutral .summary-number {
+        color: #ffc107;
+      }
+
+      .summary-label {
+        font-size: 12px;
+        color: #666;
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 20px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+
+      .filter-btn.active {
+        color: white;
+      }
+
+      .filter-btn[data-filter="all"].active {
+        background-color: #6e8efb;
+      }
+
+      .filter-btn[data-filter="positive"].active {
+        background-color: #4caf50;
+      }
+
+      .filter-btn[data-filter="negative"].active {
+        background-color: #f44336;
+      }
+
+      .filter-btn[data-filter="neutral"].active {
+        background-color: #ffc107;
+      }
+
+      .filter-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px 0;
       }
     </style>
   </head>
   <body>
-    <h3>Emotion Analysis</h3>
-    <div id="apiKeySection">
-      <input id="apiKeyInput" type="password" placeholder="Enter HF API key" />
-      <button id="saveKey">Save Key</button>
+    <header>
+      <h1>Emotion Detector</h1>
+      <div class="subtitle">Analyze sentiment in comments</div>
+    </header>
+
+    <div id="apiSection" class="api-section">
+      <input
+        id="apiKeyInput"
+        type="password"
+        placeholder="Enter your HuggingFace API key"
+      />
+      <button id="saveKey">Save</button>
     </div>
-    <button id="analyze">Analyze Page</button>
-    <pre id="results">Click "Analyze Page" to begin...</pre>
+
+    <button id="analyze" class="analyze-btn">Analyze Comments</button>
+
+    <div class="summary">
+      <div class="summary-item summary-positive">
+        <div class="summary-number">0</div>
+        <div class="summary-label">Positive</div>
+      </div>
+      <div class="summary-item summary-neutral">
+        <div class="summary-number">0</div>
+        <div class="summary-label">Neutral</div>
+      </div>
+      <div class="summary-item summary-negative">
+        <div class="summary-number">0</div>
+        <div class="summary-label">Negative</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="sentimentChart"></canvas>
+    </div>
+
+    <div class="filter-container">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="positive">Positive</button>
+      <button class="filter-btn" data-filter="neutral">Neutral</button>
+      <button class="filter-btn" data-filter="negative">Negative</button>
+    </div>
+
+    <div id="commentsContainer" class="comments-container hidden">
+      <!-- Comments will be displayed here when a filter is selected -->
+    </div>
+
     <script src="popup.js"></script>
   </body>
 </html>
