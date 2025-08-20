@@ -301,3 +301,34 @@ h1 {
   text-align: center;
   color: #888;
 }
+
+/* Loader styles */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* Load more button styles */
+.load-more-container {
+  text-align: center;
+  margin: 15px 0;
+}
+
+.load-more-btn {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.load-more-btn:hover {
+  background-color: #5d7ce0;
+}
