@@ -1,334 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  --primary-color: #6e8efb;
-  --secondary-color: #a777e3;
-  --positive-color: #4caf50;
-  --negative-color: #f44336;
-  --neutral-color: #ffc107;
-  --background-color: #f9f9f9;
-  --card-bg: #ffffff;
-  --text-color: #333333;
-  --border-color: #e0e0e0;
+    --primary-color: #6a5acd;
+    --secondary-color: #9370db;
+    --positive-color: #20c997;
+    --negative-color: #dc3545;
+    --neutral-color: #ffc107;
+    --background-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --text-color: #212529;
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  width: 500px;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.container {
-  padding: 15px;
+    width: 500px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 header {
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  color: white;
-  width: 100%;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
 }
 
 h1 {
-  font-size: 20px;
-  margin-bottom: 5px;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .subtitle {
-  font-size: 12px;
-  opacity: 0.9;
+    font-size: 14px;
+    opacity: 0.9;
 }
 
 .api-section {
-  background-color: var(--card-bg);
-  padding: 15px;
-  margin: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  display: flex;
-  gap: 10px;
+    background-color: var(--card-bg);
+    padding: 20px;
+    margin: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: calc(100% - 40px);
 }
 
 #apiKeyInput {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  font-size: 14px;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#apiKeyInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.2);
 }
 
 #saveKey {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-weight: 500;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.2s;
 }
 
 #saveKey:hover {
-  background-color: #5d7ce0;
+    background-color: #5a48b3;
 }
 
 .analyze-btn {
-  display: block;
-  width: calc(100% - 30px);
-  margin: 10px 15px;
-  padding: 12px;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+    display: block;
+    width: calc(100% - 40px);
+    margin: 0 20px 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .analyze-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--shadow-color);
 }
 
 .chart-container {
-  background-color: var(--card-bg);
-  margin: 15px;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  position: relative;
-  min-height: 200px;
+    background-color: var(--card-bg);
+    margin: 0 20px 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    position: relative;
+    min-height: 220px;
+    width: calc(100% - 40px);
 }
 
 #sentimentChart {
-  width: 100%;
-  height: 200px;
+    width: 100%;
+    height: 220px;
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
 .comments-container {
-  max-height: 300px;
-  overflow-y: auto;
-  margin: 15px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px;
-  background-color: #fafafa;
+    max-height: 350px;
+    overflow-y: auto;
+    margin: 0 20px 20px;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: var(--background-color);
+    width: calc(100% - 40px);
 }
 
 .comment {
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 6px;
-  background-color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.comment:last-child {
-  margin-bottom: 0;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border-left: 5px solid;
 }
 
 .positive-comment {
-  border-left: 4px solid var(--positive-color);
+    border-color: var(--positive-color);
 }
 
 .negative-comment {
-  border-left: 4px solid var(--negative-color);
+    border-color: var(--negative-color);
 }
 
 .neutral-comment {
-  border-left: 4px solid var(--neutral-color);
+    border-color: var(--neutral-color);
 }
 
 .sentiment-bar {
-  height: 8px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
-  margin: 5px 0;
-  overflow: hidden;
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
+    margin: 8px 0;
+    overflow: hidden;
 }
 
 .sentiment-fill {
-  height: 100%;
-  border-radius: 4px;
+    height: 100%;
+    border-radius: 3px;
 }
 
 .positive-fill {
-  background-color: var(--positive-color);
+    background-color: var(--positive-color);
 }
 
 .negative-fill {
-  background-color: var(--negative-color);
+    background-color: var(--negative-color);
 }
 
 .neutral-fill {
-  background-color: var(--neutral-color);
+    background-color: var(--neutral-color);
 }
 
 .top-badge {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 11px;
-  font-weight: bold;
-  margin-top: 5px;
-  color: white;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 10px;
+    color: white;
 }
 
 .top-positive {
-  background-color: var(--positive-color);
+    background-color: var(--positive-color);
 }
 
 .top-negative {
-  background-color: var(--negative-color);
+    background-color: var(--negative-color);
 }
 
 .top-neutral {
-  background-color: var(--neutral-color);
+    background-color: var(--neutral-color);
 }
 
 .summary {
-  display: flex;
-  justify-content: space-around;
-  margin: 15px 0;
-  text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    text-align: center;
+    width: 100%;
 }
 
 .summary-item {
-  flex: 1;
-  padding: 10px;
+    flex: 1;
+    padding: 10px;
 }
 
 .summary-number {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 5px;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
 }
 
 .summary-positive .summary-number {
-  color: var(--positive-color);
+    color: var(--positive-color);
 }
 
 .summary-negative .summary-number {
-  color: var(--negative-color);
+    color: var(--negative-color);
 }
 
 .summary-neutral .summary-number {
-  color: var(--neutral-color);
+    color: var(--neutral-color);
 }
 
 .summary-label {
-  font-size: 12px;
-  color: #666;
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    font-weight: 500;
 }
 
 .filter-container {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    margin: 0 0 20px;
 }
 
 .filter-btn {
-  padding: 8px 16px;
-  margin: 0 5px;
-  border: none;
-  border-radius: 20px;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s;
+    padding: 10px 20px;
+    margin: 0 8px;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .filter-btn.active {
-  color: white;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .filter-btn[data-filter="all"].active {
-  background-color: var(--primary-color);
+    background-color: var(--primary-color);
 }
 
 .filter-btn[data-filter="positive"].active {
-  background-color: var(--positive-color);
+    background-color: var(--positive-color);
 }
 
 .filter-btn[data-filter="negative"].active {
-  background-color: var(--negative-color);
+    background-color: var(--negative-color);
 }
 
 .filter-btn[data-filter="neutral"].active {
-  background-color: var(--neutral-color);
+    background-color: var(--neutral-color);
 }
 
 .sentiment-label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  margin-bottom: 3px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #495057;
+    font-weight: 500;
 }
 
 .comment-text {
-  margin-bottom: 10px;
-  line-height: 1.4;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    color: #343a40;
 }
 
 .no-comments {
-  padding: 20px;
-  text-align: center;
-  color: #888;
+    padding: 30px;
+    text-align: center;
+    color: #868e96;
+    font-style: italic;
 }
 
-/* Loader styles */
 .loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  font-size: 16px;
-  color: #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 220px;
+    font-size: 16px;
+    color: #6c757d;
 }
 
-/* Load more button styles */
+.loader-gif {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 15px;
+}
+
 .load-more-container {
-  text-align: center;
-  margin: 15px 0;
+    text-align: center;
+    margin: 20px 0;
 }
 
 .load-more-btn {
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 .load-more-btn:hover {
-  background-color: #5d7ce0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.get-api-key {
+    margin-top: 5px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.get-api-key a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.get-api-key a:hover {
+    text-decoration: underline;
 }

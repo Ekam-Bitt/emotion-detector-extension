@@ -3,7 +3,10 @@
   <head>
     <title>Emotion Detector</title>
     <script src="libs/chart.umd.min.js"></script>
-    <link rel="stylesheet" href="styles.css" />    
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">    
   </head>
   <body>
     <header>
@@ -18,9 +21,12 @@
         placeholder="Enter your HuggingFace API key"
       />
       <button id="saveKey">Save</button>
+      <div class="get-api-key">
+        <a href="https://huggingface.co/settings/tokens/new?tokenType=read" target="_blank">Get your Hugging Face API Key</a>
+      </div>
     </div>
 
-    <button id="analyze" class="analyze-btn">Analyze Comments</button>
+    <button id="analyze" class="analyze-btn" style=" margin-top: 20px;">Analyze Comments</button>
 
     <div class="summary">
       <div class="summary-item summary-positive">
