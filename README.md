@@ -2,11 +2,9 @@
 
 This is a Chrome extension that analyzes the emotional sentiment of social media comments and posts. It uses a Hugging Face model to classify text into different emotions, such as positive, negative, and neutral.
 
-## Screenshots
-
 | Main Popup | Sentiment Chart | Filtered Comments |
 | :---: | :---: | :---: |
-| ![Main Popup](https://via.placeholder.com/400x300.png?text=Main+Popup+UI) | ![Sentiment Chart](https://via.placeholder.com/400x300.png?text=Sentiment+Chart) | ![Filtered Comments](https://via.placeholder.com/400x300.png?text=Filtered+Comments) |
+| <img width="499" height="402" alt="Screenshot 2025-08-23 at 9 25 52 PM" src="https://github.com/user-attachments/assets/c6371a91-7568-4b22-a21d-d9f474554c9b" /> |<img width="499" height="559" alt="Screenshot 2025-08-23 at 9 24 49 PM" src="https://github.com/user-attachments/assets/e69e9796-24d7-4c74-bd68-b963a7e8b4ef" /> | <img width="499" height="436" alt="Screenshot 2025-08-23 at 9 25 15 PM" src="https://github.com/user-attachments/assets/5011d3bc-3322-4485-8f11-5a9e326f3fb5" />| 
 
 ## Features
 
