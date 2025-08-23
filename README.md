@@ -1,37 +1,59 @@
 # Emotion Detector Extension
 
-This is a Chrome extension that analyzes the emotional sentiment of social media comments and posts. It uses a Hugging Face model to classify text into different emotions, such as positive, negative, and neutral.
+A Chrome extension that helps **content creators** quickly understand audience feedback on their posts and videos.
+
+It analyzes comments from **YouTube, X (Twitter), and Reddit**, using the [Cardiff NLP `twitter-xlm-roberta-base-sentiment`](https://huggingface.co/cardiffnlp/twitter-xlm-roberta-base-sentiment) model from Hugging Face to classify text into **positive, negative, or neutral** sentiment.
+
+# Images
 
 | Main Popup | Sentiment Chart | Filtered Comments |
 | :---: | :---: | :---: |
-| <img width="499" height="402" alt="Screenshot 2025-08-23 at 9 25 52 PM" src="https://github.com/user-attachments/assets/c6371a91-7568-4b22-a21d-d9f474554c9b" /> |<img width="499" height="559" alt="Screenshot 2025-08-23 at 9 24 49 PM" src="https://github.com/user-attachments/assets/e69e9796-24d7-4c74-bd68-b963a7e8b4ef" /> | <img width="499" height="436" alt="Screenshot 2025-08-23 at 9 25 15 PM" src="https://github.com/user-attachments/assets/5011d3bc-3322-4485-8f11-5a9e326f3fb5" />| 
+| <img width="498" height="508" alt="Popup" src="https://github.com/user-attachments/assets/70861fbc-6461-4749-ba3e-d70c6f7a0e91" /> | <img width="498" height="508" alt="Chart" src="https://github.com/user-attachments/assets/2ad96ef9-ce0e-4824-8956-11af4013062d" /> | <img width="498" height="508" alt="Filtered" src="https://github.com/user-attachments/assets/cbdef5cd-a3d1-4bbd-aad6-d86eeaad9a23" /> |
 
-## Features
+## ✨ Why Content Creators Will Love It
 
-*   **Sentiment Analysis:** Analyzes the emotional sentiment of comments and posts on various social media platforms.
-*   **Visual Representation:** Provides a visual representation of the sentiment distribution using a chart.
-*   **Comment Filtering:** Allows users to filter comments based on their emotional sentiment.
-*   **Easy to Use:** Simple and intuitive interface that integrates seamlessly into your browsing experience.
+* **Instant Feedback Analysis**
+  No need to manually scroll through hundreds of comments—get a quick breakdown of how your audience is reacting.
 
-## Installation
+* **Visual Sentiment Insights**
+  A chart shows you the balance of positive, neutral, and negative responses at a glance.
 
-1.  Clone this repository to your local machine.
-2.  Open your Chrome or Brave browser and navigate to `chrome://extensions`.
-3.  Enable "Developer mode" in the top right corner.
-4.  Click on "Load unpacked" and select the directory where you cloned the repository.
+* **Comment Filtering**
+  Want to see only critical feedback or only supportive comments? Filter instantly.
 
-## Usage
+* **Supported Platforms**
+  Works today on **YouTube, X (Twitter), and Reddit**, the platforms where audience feedback matters most.
 
-1.  Once the extension is installed, open a social media page with comments or posts that you want to analyze.
-2.  Click on the Emotion Detector extension icon in your browser's toolbar.
-3.  If it's your first time using the extension, you will be prompted to enter your Hugging Face API key.
-4.  Click on the "Analyze Comments" button to start the analysis.
-5.  The extension will display a chart with the sentiment distribution and a list of the comments, color-coded based on their emotional sentiment.
+## 🚀 Installation
 
-## Contributing
+1. Clone this repository:
 
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
+   ```bash
+   git clone https://github.com/yourusername/emotion-detector-extension.git
+   ```
+2. Open Chrome (or Brave) and go to `chrome://extensions/`.
+3. Enable **Developer mode** (top-right toggle).
+4. Click **Load unpacked** and select the cloned repository folder.
 
-## License
+## 🖱 Usage
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+1. Open a YouTube video, X post, or Reddit thread with comments.
+2. Click the **Emotion Detector** icon in your browser’s toolbar.
+3. On first use, enter your **Hugging Face API key**.
+
+   * You can generate one at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens).
+4. Press **Analyze Comments**.
+5. View:
+
+   * **Sentiment chart** → see overall audience mood.
+   * **Filtered comment list** → dive into supportive or critical feedback.
+
+## 🤝 Contributing
+
+Contributions are always welcome! 🎉
+
+* Open an [issue](../../issues) for feature requests or bug reports.
+* Submit a pull request with improvements or fixes.
+## 📜 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
