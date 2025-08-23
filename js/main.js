@@ -49,7 +49,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 
-    document.getElementById("analyze").addEventListener("click", extractAndAnalyze);
+    document.getElementById("analyze").addEventListener("click", () => {
+        ui.showResultsContainers();
+        extractAndAnalyze();
+    });
 
     document.getElementById("loadMore").addEventListener("click", processNextBatch);
 

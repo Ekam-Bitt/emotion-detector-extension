@@ -8,6 +8,7 @@ const SELECTORS = {
     loadMoreBtn: "#loadMore",
     loadMoreContainer: "#loadMoreContainer",
     chartContainer: ".chart-container",
+    filterContainer: ".filter-container",
     summaryPositive: ".summary-positive .summary-number",
     summaryNeutral: ".summary-neutral .summary-number",
     summaryNegative: ".summary-negative .summary-number",
@@ -131,4 +132,9 @@ export function setActiveFilter(filter) {
     getAllEl(SELECTORS.filterBtns).forEach(btn => {
         btn.classList.toggle("active", btn.dataset.filter === filter);
     });
+}
+
+export function showResultsContainers() {
+    getEl(SELECTORS.chartContainer)?.classList.remove("hidden");
+    getEl(SELECTORS.filterContainer)?.classList.remove("hidden");
 }

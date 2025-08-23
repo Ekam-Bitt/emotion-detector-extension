@@ -58,6 +58,7 @@ export async function processNextBatch() {
             const summary = getSummary();
             ui.hideLoader();
             renderChart(summary);
+            ui.showResultsContainers();
         }, 1500);
         return;
     }
@@ -97,6 +98,7 @@ export async function processNextBatch() {
         setTimeout(() => {
             ui.hideLoader();
             renderChart(summary);
+            ui.showResultsContainers();
         }, 1500);
     }
 
