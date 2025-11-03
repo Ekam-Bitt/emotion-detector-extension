@@ -97,49 +97,6 @@ h1 {
   opacity: 0.9;
 }
 
-.api-section {
-  background-color: var(--card);
-  color: var(--card-foreground);
-  padding: 20px;
-  margin: 20px;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: calc(100% - 40px);
-}
-
-#apiKeyInput {
-  background-color: var(--input);
-  padding: 12px 15px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 14px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-#apiKeyInput:focus {
-  outline: none;
-  border-color: var(--ring);
-  box-shadow: 0 0 0 3px var(--ring);
-}
-
-#saveKey {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  border: none;
-  border-radius: var(--radius);
-  padding: 12px 15px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: background-color 0.2s;
-}
-
-#saveKey:hover {
-  background-color: var(--secondary);
-}
 
 .analyze-btn {
   display: block;
@@ -303,19 +260,22 @@ h1 {
   display: flex;
   justify-content: center;
   margin: 0 0 20px;
+  flex-wrap: wrap; /* allow buttons to wrap to multiple rows */
+  gap: 6px; /* small gap between wrapped rows */
 }
 
 .filter-btn {
-  padding: 10px 20px;
-  margin: 0 8px;
+  padding: 6px 10px; /* smaller padding so more buttons fit */
+  margin: 0; /* gap handled by container's gap */
   border: none;
-  border-radius: 20px;
+  border-radius: 14px;
   background-color: var(--card);
   color: var(--card-foreground);
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 12px; /* smaller font */
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .filter-btn:hover {
@@ -404,18 +364,4 @@ h1 {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.get-api-key {
-  margin-top: 5px;
-  font-size: 12px;
-  text-align: center;
-}
-
-.get-api-key a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.get-api-key a:hover {
-  text-decoration: underline;
-}
+/* API key UI removed; related styles were deleted. */
