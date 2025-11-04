@@ -1,4 +1,3 @@
-import * as storage from './storage.js';
 import * as ui from './ui.js';
 import {
     extractAndAnalyze,
@@ -8,24 +7,8 @@ import {
     state
 } from './state.js';
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const apiKey = await storage.getApiKey();
-    if (apiKey) {
-        ui.updateApiKeyInput(apiKey);
-        ui.toggleApiSection(false);
-    }
-
-    document.getElementById("saveKey").addEventListener("click", async () => {
-        const key = document.getElementById("apiKeyInput").value;
-        if (!key) {
-            alert("Please enter an API key.");
-            return;
-        }
-        await storage.saveApiKey(key);
-        alert("API Key saved!");
-        ui.toggleApiSection(false);
-    });
-
+document.addEventListener("DOMContentLoaded", () => {
+    // Filter buttons
     document.querySelectorAll(".filter-btn").forEach((button) => {
         button.addEventListener("click", () => {
             const filter = button.dataset.filter;

@@ -1,11 +1,10 @@
-export const saveApiKey = (key) => {
-  return new Promise((resolve) => {
-    chrome.storage.local.set({ HF_API_KEY: key }, resolve);
-  });
+// API key storage removed. Keep no-op functions for backwards compatibility if imported.
+export const saveApiKey = async (/* key */) => {
+  // No-op: API key handling removed from this extension.
+  return Promise.resolve();
 };
 
-export const getApiKey = () => {
-  return new Promise((resolve) => {
-    chrome.storage.local.get("HF_API_KEY", (data) => resolve(data.HF_API_KEY));
-  });
+export const getApiKey = async () => {
+  // Always return null: no API key stored or required.
+  return Promise.resolve(null);
 };

@@ -1,7 +1,4 @@
 const SELECTORS = {
-    apiKeyInput: "#apiKeyInput",
-    apiSection: "#apiSection",
-    saveKeyBtn: "#saveKey",
     filterBtns: ".filter-btn",
     commentsContainer: "#commentsContainer",
     analyzeBtn: "#analyze",
@@ -9,10 +6,20 @@ const SELECTORS = {
     loadMoreContainer: "#loadMoreContainer",
     chartContainer: ".chart-container",
     filterContainer: ".filter-container",
-    summaryPositive: ".summary-positive .summary-number",
-    summaryNeutral: ".summary-neutral .summary-number",
-    summaryNegative: ".summary-negative .summary-number",
+    summaryContainer: "#summaryContainer",
 };
+
+// Label mapping from model labels to human-readable names and colors
+const LABEL_INFO = {
+    LABEL_0: { name: 'ADHD', color: '#6EE7B7' },
+    LABEL_1: { name: 'Anxiety', color: '#60A5FA' },
+    LABEL_2: { name: 'Autism', color: '#F59E0B' },
+    LABEL_3: { name: 'BPD', color: '#A78BFA' },
+    LABEL_4: { name: 'Depression', color: '#F9737A' },
+    LABEL_5: { name: 'PTSD', color: '#34D399' },
+    LABEL_6: { name: 'Normal', color: '#9CA3AF' },
+};
+const LABEL_ORDER = Object.keys(LABEL_INFO);
 
 const getEl = (selector) => document.querySelector(selector);
 const getAllEl = (selector) => document.querySelectorAll(selector);
@@ -35,16 +42,7 @@ export function hideLoader() {
     }
 }
 
-export function updateApiKeyInput(key) {
-    const input = getEl(SELECTORS.apiKeyInput);
-    if (input) {
-        input.value = key;
-    }
-}
-
-export function toggleApiSection(show) {
-    getEl(SELECTORS.apiSection)?.classList.toggle("hidden", !show);
-}
+// API key UI removed. No functions related to updating or toggling an API key remain.
 
 export function toggleCommentsContainer(show) {
     getEl(SELECTORS.commentsContainer)?.classList.toggle("hidden", !show);
@@ -70,9 +68,11 @@ export function setLoadMoreState(isLoading) {
 }
 
 export function updateSummary(summary) {
-    getEl(SELECTORS.summaryPositive).textContent = summary.positive;
-    getEl(SELECTORS.summaryNeutral).textContent = summary.neutral;
-    getEl(SELECTORS.summaryNegative).textContent = summary.negative;
+    // summary is expected to be an object keyed by LABEL_*
+    LABEL_ORDER.forEach(label => {
+        const el = getEl(`#summary-${label}`);
+        if (el) el.textContent = summary[label] || 0;
+    });
 }
 
 export function displayResults(results, topComments, filter) {
@@ -100,20 +100,26 @@ function createCommentElement(result, topComments, filter) {
     const topPrediction = result.predictions.reduce((prev, current) =>
         prev.score > current.score ? prev : current
     );
-    commentDiv.className = `comment ${topPrediction.label}-comment`;
+    // Style the comment border according to the top prediction color
+    const topColor = LABEL_INFO[topPrediction.label]?.color || '#ddd';
+    commentDiv.className = `comment`;
+    commentDiv.style.borderLeft = `5px solid ${topColor}`;
 
     const topCommentForLabel = topComments[topPrediction.label];
     const isTopComment = topCommentForLabel && result.originalIndex === topCommentForLabel.originalIndex;
 
-    const sentimentBarsHtml = result.predictions.map(p => `
+    const sentimentBarsHtml = result.predictions.map(p => {
+        const info = LABEL_INFO[p.label] || { name: p.label, color: '#ccc' };
+        return `
         <div class="sentiment-label">
-            <span>${p.label}</span>
+            <span>${info.name}</span>
             <span>${(p.score * 100).toFixed(2)}%</span>
         </div>
         <div class="sentiment-bar">
-            <div class="sentiment-fill ${p.label}-fill" style="width: ${(p.score * 100).toFixed(2)}%"></div>
+            <div class="sentiment-fill" style="width: ${(p.score * 100).toFixed(2)}%; background:${info.color}"></div>
         </div>
-    `).join('');
+    `;
+    }).join('');
 
     let html = `
         <div class="comment-text">${result.text}</div>
@@ -121,7 +127,8 @@ function createCommentElement(result, topComments, filter) {
     `;
 
     if (isTopComment && filter !== "all") {
-        html += `<div class="top-badge top-${topPrediction.label}">Top ${topPrediction.label}</div>`;
+        const human = LABEL_INFO[topPrediction.label]?.name || topPrediction.label;
+        html += `<div class="top-badge" style="background:${topColor}">Top ${human}</div>`;
     }
 
     commentDiv.innerHTML = html;
@@ -137,4 +144,5 @@ export function setActiveFilter(filter) {
 export function showResultsContainers() {
     getEl(SELECTORS.chartContainer)?.classList.remove("hidden");
     getEl(SELECTORS.filterContainer)?.classList.remove("hidden");
+    getEl(SELECTORS.summaryContainer)?.classList.remove("hidden");
 }

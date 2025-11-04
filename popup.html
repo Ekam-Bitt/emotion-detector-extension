@@ -14,32 +14,38 @@
       <div class="subtitle">Analyze sentiment in comments</div>
     </header>
 
-    <div id="apiSection" class="api-section">
-      <input
-        id="apiKeyInput"
-        type="password"
-        placeholder="Enter your HuggingFace API key"
-      />
-      <button id="saveKey">Save</button>
-      <div class="get-api-key">
-        <a href="https://huggingface.co/settings/tokens/new?tokenType=read" target="_blank">Get your Hugging Face API Key</a>
-      </div>
-    </div>
+    <!-- API key not required anymore; removed input and save button -->
 
     <button id="analyze" class="analyze-btn" style=" margin-top: 20px;">Analyze Comments</button>
 
-    <div class="summary">
-      <div class="summary-item summary-positive">
-        <div class="summary-number">0</div>
-        <div class="summary-label">Positive</div>
+  <div class="summary seven-summary hidden" id="summaryContainer">
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_0">0</div>
+        <div class="summary-label">ADHD</div>
       </div>
-      <div class="summary-item summary-neutral">
-        <div class="summary-number">0</div>
-        <div class="summary-label">Neutral</div>
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_1">0</div>
+        <div class="summary-label">Anxiety</div>
       </div>
-      <div class="summary-item summary-negative">
-        <div class="summary-number">0</div>
-        <div class="summary-label">Negative</div>
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_2">0</div>
+        <div class="summary-label">Autism</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_3">0</div>
+        <div class="summary-label">BPD</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_4">0</div>
+        <div class="summary-label">Depression</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_5">0</div>
+        <div class="summary-label">PTSD</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-number" id="summary-LABEL_6">0</div>
+        <div class="summary-label">Normal</div>
       </div>
     </div>
 
@@ -49,9 +55,13 @@
 
     <div class="filter-container hidden">
       <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="positive">Positive</button>
-      <button class="filter-btn" data-filter="neutral">Neutral</button>
-      <button class="filter-btn" data-filter="negative">Negative</button>
+      <button class="filter-btn" data-filter="LABEL_0">ADHD</button>
+      <button class="filter-btn" data-filter="LABEL_1">Anxiety</button>
+      <button class="filter-btn" data-filter="LABEL_2">Autism</button>
+      <button class="filter-btn" data-filter="LABEL_3">BPD</button>
+      <button class="filter-btn" data-filter="LABEL_4">Depression</button>
+      <button class="filter-btn" data-filter="LABEL_5">PTSD</button>
+      <button class="filter-btn" data-filter="LABEL_6">Normal</button>
     </div>
 
     <div id="loadMoreContainer" class="load-more-container hidden">
