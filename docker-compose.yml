@@ -6,7 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - MODEL_DIR=./model_files
+      - MODEL_ID=ekam28/emotion-detector
     volumes:
       - ./backend:/app
     networks:
