@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_DIR=./model_files
+    volumes:
+      - ./backend:/app
+    networks:
+      - emotion-net
+    restart: unless-stopped
+
+  extension:
+    build:
+      context: ./extension
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+      - ./extension:/app
+    networks:
+      - emotion-net
+    restart: unless-stopped
+
+networks:
+  emotion-net:
+    driver: bridge

@@ -1,0 +1,12 @@
+{
+  "name": "spectrum-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension for sentiment analysis",
+  "main": "background.js",
+  "scripts": {
+    "start": "http-server -p 80"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+dist/
+build/
+.vscode/
+.idea/
+venv/
+env/
+backend/model_files/
+*.safetensors

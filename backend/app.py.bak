@@ -1,0 +1,113 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from transformers import pipeline
+import math
+
+# --- Configuration ---
+# IMPORTANT: This path must point to the directory containing your model files
+MODEL_DIR = "./model_files" 
+
+app = Flask(__name__)
+# Enable CORS for your frontend (extension) to access the API
+CORS(app) 
+
+# --- Model Loading (Runs ONCE on server startup) ---
+# Loading the model outside the route function ensures fast inference.
+try:
+    # 'text-classification' is the task pipeline for sentiment/comment analysis
+    sentiment_pipeline = pipeline(
+        "text-classification", 
+        model=MODEL_DIR, 
+        tokenizer=MODEL_DIR
+    )
+    print(f"RoBERTa Model loaded successfully from: {MODEL_DIR}")
+except Exception as e:
+    print(f"Error loading model: {e}")
+    sentiment_pipeline = None
+
+def _softmax(values):
+    # stable softmax
+    if not values:
+        return []
+    m = max(values)
+    exps = [math.exp(v - m) for v in values]
+    s = sum(exps)
+    return [e / s for e in exps]
+
+def _apply_softmax_to_pipeline_results(results):
+    # Handle both single-input (list of dicts) and multi-input (list of list of dicts)
+    if not isinstance(results, list):
+        return results
+
+    single_input_format = bool(results and isinstance(results[0], dict))
+    groups = [results] if single_input_format else results
+
+    soft_groups = []
+    for group in groups:
+        scores = [item.get("score", 0.0) for item in group]
+        probs = _softmax(scores)
+        soft_group = []
+        for item, p in zip(group, probs):
+            new_item = item.copy()
+            new_item["score"] = p
+            soft_group.append(new_item)
+        soft_groups.append(soft_group)
+
+    return soft_groups[0] if single_input_format else soft_groups
+
+# --- API Endpoint: /predict ---
+@app.route('/predict', methods=['POST'])
+def predict():
+    # Health Check
+    if sentiment_pipeline is None:
+        return jsonify({"error": "Model not available. Check server logs."}), 503
+
+    # 1. Get JSON payload (accept 'inputs' from frontend or legacy 'comments')
+    data = request.get_json(silent=True)
+    if not data:
+        print("Received invalid JSON or empty payload")  # print to terminal
+        return jsonify({"error": "Invalid JSON."}), 400
+
+    if "inputs" in data:
+        raw_inputs = data["inputs"]
+    elif "comments" in data:
+        raw_inputs = data["comments"]
+    else:
+        print("Missing 'inputs' or 'comments' key in payload:", data)  # print to terminal
+        return jsonify({"error": "JSON must contain 'inputs' or 'comments' key."}), 400
+
+    # 2. Normalize to a list of strings (accept single string or list)
+    if isinstance(raw_inputs, str):
+        texts = [raw_inputs]
+    elif isinstance(raw_inputs, list):
+        texts = raw_inputs
+    else:
+        print("Invalid 'inputs' type:", type(raw_inputs))  # print to terminal
+        return jsonify({"error": "The 'inputs' value must be a string or a list of strings."}), 400
+
+    if not texts:
+        print("Empty input list received")  # print to terminal
+        return jsonify({"error": "Input must be a non-empty list of comments."}), 400
+
+    # Print normalized inputs to terminal for debugging/visibility
+    print("Inputs for prediction:", texts)
+
+    # 3. Run prediction
+    try:
+        results = sentiment_pipeline(texts, top_k=7)
+
+        # Apply softmax on returned scores
+        soft_results = _apply_softmax_to_pipeline_results(results)
+
+        # Print softmaxed prediction results to terminal
+        print("Softmaxed prediction results:", soft_results)
+
+        return jsonify(soft_results)
+    except Exception as e:
+        print(f"Prediction error: {e}")  # print to terminal
+        return jsonify({"error": "An error occurred during model inference."}), 500
+
+# --- Server Execution ---
+if __name__ == '__main__':
+    # Run the server on the default port 5000
+    app.run(host='0.0.0.0', port=5000, debug=True)
