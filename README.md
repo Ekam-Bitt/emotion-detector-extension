@@ -1,10 +1,44 @@
 # Emotion Detector Extension
 
+![GitHub Release](https://img.shields.io/github/v/release/Ekam-Bitt/emotion-detector-extension)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Ekam-Bitt/emotion-detector-extension/docker-build.yml?label=build)
+![GitHub License](https://img.shields.io/github/license/Ekam-Bitt/emotion-detector-extension)
+
 A privacy-focused browser extension that analyzes text content on web pages to detect emotional states and potential mental health indicators. Powered by a custom fine-tuned RoBERTa model.
+
+## 📥 Getting Started
+
+### 1. Get the Code
+You need the full project code to run both the backend server and the extension.
+
+*   **Option A: Git (Recommended)**
+    ```bash
+    git clone https://github.com/Ekam-Bitt/emotion-detector-extension.git
+    cd emotion-detector-extension
+    ```
+
+*   **Option B: No Git**
+    1.  Go to the **[Latest Release](https://github.com/Ekam-Bitt/emotion-detector-extension/releases/latest)**.
+    2.  Download the **Source code (zip)** (at the bottom of the assets list).
+    3.  Unzip the file and open the folder.
+
+### 2. Start the Backend
+The extension relies on a local backend server to process data.
+
+```bash
+docker compose up --build
+```
+*Note: On the first run, it will download the ML model (~500MB) from Hugging Face.*
+
+### 3. Load the Extension
+1.  Open Chrome and go to `chrome://extensions/`.
+2.  Enable **Developer mode** (top right).
+3.  Click **Load unpacked**.
+4.  Select the `extension` folder from the project directory.
 
 ## 🚀 Features
 
--   **Platform Support**: Specifically optimized for analyzing comments on **YouTube**,-   **Platform Support**: Specifically optimized for analyzing comments on **YouTube**, **Reddit**, and **X (Twitter)**.
+-   **Platform Support**: Specifically optimized for analyzing comments on **YouTube**, **Reddit**, and **X (Twitter)**.
 -   **Privacy First**: All analysis is done via a secure backend API; no data is stored permanently.
 -   **7 Emotion Categories**: Detects ADHD, Anxiety, Autism, BPD, Depression, PTSD, and Normal/Neutral states.
 -   **Visual Insights**: Displays a breakdown of detected emotions in a clean, easy-to-read chart.
@@ -16,34 +50,7 @@ A privacy-focused browser extension that analyzes text content on web pages to d
 -   **ML Model**: RoBERTa (Fine-tuned), hosted on [Hugging Face](https://huggingface.co/ekam28/emotion-detector)
 -   **Infrastructure**: Docker, Docker Compose
 
-## 📦 Installation
 
-### Prerequisites
-
--   Docker & Docker Compose
--   Google Chrome (or Chromium-based browser)
-
-### 1. Start the Backend
-
-The backend handles the heavy lifting of running the ML model.
-
-```bash
-# Clone the repository
-git clone https://github.com/Ekam-Bitt/emotion-detector-extension.git
-cd emotion-detector-extension
-
-# Start the services
-docker compose up --build
-```
-
-*Note: On the first run, the system will automatically download the model (~500MB) from Hugging Face. This may take a few minutes.*
-
-### 2. Load the Extension
-
-1.  Open Chrome and navigate to `chrome://extensions/`.
-2.  Enable **Developer mode** (top right toggle).
-3.  Click **Load unpacked**.
-4.  Select the `extension` folder from this repository.
 
 ## 🖥️ Usage
 
