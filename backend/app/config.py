@@ -10,7 +10,7 @@ class AppConfig:
     @staticmethod
     def from_env() -> "AppConfig":
         return AppConfig(
-            model_path=os.getenv("MODEL_ID", "Ekam-Bitt/emotion-detector"), # Placeholder, user needs to update this
+            model_path=os.getenv("MODEL_ID", "ekam28/emotion-detector"),
             top_k=int(os.getenv("TOP_K", "7")),
             torch_num_threads=int(os.getenv("TORCH_NUM_THREADS", "1")),
         )
