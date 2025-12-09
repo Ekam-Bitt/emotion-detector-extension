@@ -1,13 +1,23 @@
 chrome.runtime.onInstalled.addListener(() => {
   // Inject content script into existing tabs
-  chrome.tabs.query({ url: ["*://*.youtube.com/*", "*://*.twitter.com/*", "*://*.x.com/*", "*://*.reddit.com/*"] }, (tabs) => {
-    for (const tab of tabs) {
-      chrome.scripting.executeScript({
-        target: { tabId: tab.id },
-        files: ["content.js"],
-      });
-    }
-  });
+  chrome.tabs.query(
+    {
+      url: [
+        "*://*.youtube.com/*",
+        "*://*.twitter.com/*",
+        "*://*.x.com/*",
+        "*://*.reddit.com/*",
+      ],
+    },
+    (tabs) => {
+      for (const tab of tabs) {
+        chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ["content.js"],
+        });
+      }
+    },
+  );
 });
 
 async function getApiBaseUrl() {
@@ -17,7 +27,7 @@ async function getApiBaseUrl() {
         { apiBaseUrl: "http://localhost:8000" },
         (items) => {
           resolve(items.apiBaseUrl);
-        }
+        },
       );
     } catch (e) {
       resolve("http://localhost:8000");

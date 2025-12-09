@@ -1,80 +1,106 @@
-// Platform-specific comment selectors
-const SELECTORS = {
-  "www.youtube.com": "ytd-comment-thread-renderer #content-text",
-  "twitter.com": '[data-testid="tweetText"]',
-  "x.com": '[data-testid="tweetText"]',
-  "www.reddit.com": [
-    ".Post ._292iotee39Lmt0MkQZ2hPV", // Old Reddit comment text
-    "shreddit-comment-body", // New Reddit comment text
-    "div[data-testid='comment'] p", // General comment paragraph
-  ],
-};
+(async () => {
+  const MAX_LEN = 1000; // safety; adjust as needed
+  const TIMEOUT = 10000; // 10 seconds timeout
 
-function waitForComments(selector, timeout = 10000) {
-  return new Promise((resolve, reject) => {
-    const observer = new MutationObserver((mutations, obs) => {
-      let elements = [];
-      if (Array.isArray(selector)) {
-        for (const s of selector) {
-          elements = document.querySelectorAll(s);
-          if (elements.length > 0) break;
+  function normalizeElements(elements, source) {
+    return Array.from(elements)
+      .map((el, index) => ({
+        text: (el.innerText || "").trim(),
+        originalIndex: index,
+        source,
+      }))
+      .filter((item) => item.text && item.text.length > 5)
+      .map((item) => ({
+        ...item,
+        text: item.text.slice(0, MAX_LEN),
+      }));
+  }
+
+  // ---------- Selectors ----------
+  const REDDIT_SELECTORS = [
+    "div[data-testid='comment'] p", // New Reddit (user provided)
+    "shreddit-comment-body", // Modern Reddit Shadow DOM
+    ".Post ._292iotee39Lmt0MkQZ2hPV", // Old New Reddit (?)
+    "div[data-testid='post-container'] p", // Post body
+    "div[id$='-post-rtjson-content']", // Target container to group paragraphs
+    "div[class*='text-neutral-content']", // Target container to group paragraphs
+  ];
+
+  const YOUTUBE_SELECTORS = [
+    "ytd-comment-thread-renderer #content-text",
+    "ytd-comment-thread-renderer ytd-comment-renderer #content-text",
+    "ytd-comment-view-model #content-text",
+  ];
+
+  const X_SELECTORS = [
+    "article div[data-testid='tweetText']",
+    "article div[lang]",
+  ];
+
+  function getSelectors(host) {
+    if (host.includes("youtube.com")) return YOUTUBE_SELECTORS;
+    if (host.includes("reddit.com")) return REDDIT_SELECTORS;
+    if (host.includes("x.com") || host.includes("twitter.com"))
+      return X_SELECTORS;
+    return [];
+  }
+
+  function getSource(host) {
+    if (host.includes("youtube.com")) return "youtube";
+    if (host.includes("reddit.com")) return "reddit";
+    if (host.includes("x.com") || host.includes("twitter.com")) return "x";
+    return "unknown";
+  }
+
+  // ---------- Async Waiter ----------
+  function waitForComments(selectors, timeout) {
+    return new Promise((resolve) => {
+      // Helper to find elements
+      const scan = () => {
+        const elements = new Set();
+        selectors.forEach((sel) => {
+          document.querySelectorAll(sel).forEach((el) => elements.add(el));
+        });
+        return elements;
+      };
+
+      // Check immediately
+      let elements = scan();
+      if (elements.size > 0) {
+        resolve(elements);
+        return;
+      }
+
+      // Observe
+      const observer = new MutationObserver(() => {
+        elements = scan();
+        if (elements.size > 0) {
+          observer.disconnect();
+          resolve(elements);
         }
-      } else {
-        elements = document.querySelectorAll(selector);
-      }
+      });
 
-      if (elements.length > 0) {
-        obs.disconnect();
-        const comments = Array.from(elements)
-          .map((el) => el.innerText)
-          .filter(Boolean);
-        resolve(comments);
-      }
+      observer.observe(document.body, { childList: true, subtree: true });
+
+      // Timeout
+      setTimeout(() => {
+        observer.disconnect();
+        resolve(scan()); // Return whatever we have (maybe empty)
+      }, timeout);
     });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
-    setTimeout(() => {
-      observer.disconnect();
-      reject(new Error("Timeout waiting for comments"));
-    }, timeout);
-  });
-}
-
-async function extractText() {
-  const hostname = window.location.hostname;
-  console.log("Spectrum extension: Hostname:", hostname);
-
-  const selector = SELECTORS[hostname];
-  console.log("Spectrum extension: Selector:", selector);
-
-  if (selector) {
-    try {
-      const comments = await waitForComments(selector);
-      console.log("Spectrum extension: Extracted comments:", comments);
-      return comments;
-    } catch (error) {
-      console.error("Spectrum extension:", error);
-      return [];
-    }
   }
 
-  // Fallback for unknown platforms
-  let elements = document.querySelectorAll("p, span, div, li");
-  return Array.from(elements)
-    .map((el) => el.innerText)
-    .filter(Boolean)
-    .slice(0, 50); // limit for MVP
-}
+  // ---------- Main Execution ----------
+  const host = window.location.hostname;
+  const selectors = getSelectors(host);
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "get_comments") {
-    extractText().then((comments) => {
-      sendResponse({ comments });
-    });
-    return true; // Keep the message channel open for the async response
+  if (selectors.length === 0) {
+    return [];
   }
-});
+
+  const foundElements = await waitForComments(selectors, TIMEOUT);
+  const source = getSource(host);
+  const comments = normalizeElements(foundElements, source);
+
+  return comments;
+})();
