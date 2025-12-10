@@ -1,6 +1,6 @@
 {
   "name": "detection-of-mental-disorders",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Chrome extension for detection of mental disorders",
   "main": "background.js",
   "scripts": {

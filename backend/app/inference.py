@@ -41,7 +41,8 @@ def load_pipeline(config) -> any:
             padding=True,
         )
         logger.info(
-            f"Model loaded from: {config.model_path} on device: {'cuda:0' if device==0 else 'cpu'}"
+            f"Model loaded from: {config.model_path} "
+            f"on device: {'cuda:0' if device == 0 else 'cpu'}"
         )
         return clf
     except Exception as e:
