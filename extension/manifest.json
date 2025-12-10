@@ -1,9 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Detection of Mental Disorders",
-  "version": "1.0",
+  "version": "1.1.0",
   "description": "Detect emotions in social media comments/posts.",
-  "permissions": ["scripting", "activeTab", "storage", "webNavigation"],
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "webNavigation"
+  ],
   "background": {
     "service_worker": "background.js"
   },
@@ -25,8 +30,13 @@
   "options_page": "options.html",
   "web_accessible_resources": [
     {
-      "resources": ["icons/*.png", "icons/*.gif"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "icons/*.png",
+        "icons/*.gif"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ]
 }
