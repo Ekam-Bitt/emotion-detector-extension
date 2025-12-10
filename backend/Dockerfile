@@ -13,7 +13,7 @@ RUN apt-get update \
     && pip install --upgrade pip setuptools wheel \
     && sed '/^torch==/d' requirements.txt > /tmp/reqs_no_torch.txt \
     && pip --no-cache-dir install -r /tmp/reqs_no_torch.txt \
-    && pip --no-cache-dir install --index-url https://download.pytorch.org/whl/cpu/ torch==2.9.0
+    && pip --no-cache-dir install --index-url https://download.pytorch.org/whl/cpu/ torch==2.5.1
 
 COPY . .
 
