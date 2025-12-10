@@ -1,3 +1,5 @@
+import { API_BASE_URL } from "./config.js";
+
 chrome.runtime.onInstalled.addListener(() => {
   // Inject content script into existing tabs
   chrome.tabs.query(
@@ -20,24 +22,9 @@ chrome.runtime.onInstalled.addListener(() => {
   );
 });
 
-async function getApiBaseUrl() {
-  return new Promise((resolve) => {
-    try {
-      chrome.storage.sync.get(
-        { apiBaseUrl: "http://localhost:8000" },
-        (items) => {
-          resolve(items.apiBaseUrl);
-        },
-      );
-    } catch (e) {
-      resolve("http://localhost:8000");
-    }
-  });
-}
-
 async function analyzeEmotion(texts) {
   try {
-    const baseUrl = await getApiBaseUrl();
+    const baseUrl = API_BASE_URL;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
 
