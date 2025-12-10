@@ -21,10 +21,3 @@ jobs:
           context: ./backend
           push: false
           tags: detection-of-mental-disorders-backend:latest
-
-      - name: Build Extension Image (Optional Check)
-        uses: docker/build-push-action@v5
-        with:
-          context: ./extension
-          push: false
-          tags: detection-of-mental-disorders-extension:latest
