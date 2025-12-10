@@ -88,7 +88,7 @@ export function displayResults(results, topComments, filter) {
 
   const fragment = document.createDocumentFragment();
   results.forEach((result) => {
-    if (!result?.predictions) return;
+    if (!result?.predictions || result.predictions.length === 0) return;
     const commentDiv = createCommentElement(result, topComments, filter);
     fragment.appendChild(commentDiv);
   });

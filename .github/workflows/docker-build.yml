@@ -2,29 +2,29 @@ name: Docker Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-      
-    - name: Build Backend
-      uses: docker/build-push-action@v5
-      with:
-        context: ./backend
-        push: false
-        tags: emotion-detector-backend:latest
+      - uses: actions/checkout@v4
 
-    - name: Build Extension Image (Optional Check)
-      uses: docker/build-push-action@v5
-      with:
-        context: ./extension
-        push: false
-        tags: emotion-detector-extension:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: detection-of-mental-disorders-backend:latest
+
+      - name: Build Extension Image (Optional Check)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./extension
+          push: false
+          tags: detection-of-mental-disorders-extension:latest

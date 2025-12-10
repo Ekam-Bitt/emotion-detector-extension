@@ -38,18 +38,35 @@ async function getApiBaseUrl() {
 async function analyzeEmotion(texts) {
   try {
     const baseUrl = await getApiBaseUrl();
-    const response = await fetch(`${baseUrl.replace(/\/$/, "")}/analyze`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ comments: texts }),
-    });
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("API error:", response.status, errorText);
-      return { error: `API error: ${response.status}` };
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60 second timeout
+
+    try {
+      const response = await fetch(`${baseUrl.replace(/\/$/, "")}/analyze`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ comments: texts }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("API error:", response.status, errorText);
+        return { error: `API error: ${response.status}` };
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error.name === "AbortError") {
+        return {
+          error:
+            "Request timed out (60s). The backend is taking too long to process.",
+        };
+      }
+      throw error;
     }
-    const data = await response.json();
-    return data;
   } catch (error) {
     console.error("Fetch error:", error);
     return { error: error.message || "Unknown error" };

@@ -10,21 +10,9 @@ services:
     volumes:
       - ./backend:/app
     networks:
-      - emotion-net
-    restart: unless-stopped
-
-  extension:
-    build:
-      context: ./extension
-      dockerfile: Dockerfile
-    ports:
-      - "8080:80"
-    volumes:
-      - ./extension:/app
-    networks:
-      - emotion-net
+      - mental-health-net
     restart: unless-stopped
 
 networks:
-  emotion-net:
+  mental-health-net:
     driver: bridge

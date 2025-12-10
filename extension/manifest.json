@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Emotion Detector",
+  "name": "Detection of Mental Disorders",
   "version": "1.0",
   "description": "Detect emotions in social media comments/posts.",
   "permissions": ["scripting", "activeTab", "storage", "webNavigation"],

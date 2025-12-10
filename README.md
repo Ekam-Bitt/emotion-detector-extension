@@ -1,36 +1,41 @@
-# Emotion Detector Extension
+# Detection of Mental Disorders
 
-![GitHub Release](https://img.shields.io/github/v/release/Ekam-Bitt/emotion-detector-extension)
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Ekam-Bitt/emotion-detector-extension/docker-build.yml?label=build)
-![GitHub License](https://img.shields.io/github/license/Ekam-Bitt/emotion-detector-extension)
+![GitHub Release](https://img.shields.io/github/v/release/Ekam-Bitt/Detection-of-Mental-Disorders-Extension)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Ekam-Bitt/Detection-of-Mental-Disorders-Extension/docker-build.yml?label=build)
+![GitHub License](https://img.shields.io/github/license/Ekam-Bitt/Detection-of-Mental-Disorders-Extension)
 
 A privacy-focused browser extension that analyzes text content on web pages to detect emotional states and potential mental health indicators. Powered by a custom fine-tuned RoBERTa model.
 
 ## 📥 Getting Started
 
 ### 1. Get the Code
+
 You need the full project code to run both the backend server and the extension.
 
-*   **Option A: Git (Recommended)**
-    ```bash
-    git clone https://github.com/Ekam-Bitt/emotion-detector-extension.git
-    cd emotion-detector-extension
-    ```
+- **Option A: Git (Recommended)**
 
-*   **Option B: No Git**
-    1.  Go to the **[Latest Release](https://github.com/Ekam-Bitt/emotion-detector-extension/releases/latest)**.
-    2.  Download the **Source code (zip)** (at the bottom of the assets list).
-    3.  Unzip the file and open the folder.
+  ```bash
+  git clone https://github.com/Ekam-Bitt/Detection-of-Mental-Disorders-Extension.git
+  cd Detection-of-Mental-Disorders-Extension
+  ```
+
+- **Option B: No Git**
+  1.  Go to the **[Latest Release](https://github.com/Ekam-Bitt/Detection-of-Mental-Disorders-Extension/releases/latest)**.
+  2.  Download the **Source code (zip)** (at the bottom of the assets list).
+  3.  Unzip the file and open the folder.
 
 ### 2. Start the Backend
+
 The extension relies on a local backend server to process data.
 
 ```bash
 docker compose up --build
 ```
-*Note: On the first run, it will download the ML model (~500MB) from Hugging Face.*
+
+_Note: On the first run, it will download the ML model (~500MB) from Hugging Face._
 
 ### 3. Load the Extension
+
 1.  Open Chrome and go to `chrome://extensions/`.
 2.  Enable **Developer mode** (top right).
 3.  Click **Load unpacked**.
@@ -38,39 +43,37 @@ docker compose up --build
 
 ## 🚀 Features
 
--   **Platform Support**: Specifically optimized for analyzing comments on **YouTube**, **Reddit**, and **X (Twitter)**.
--   **Privacy First**: All analysis is done via a secure backend API; no data is stored permanently.
--   **7 Emotion Categories**: Detects ADHD, Anxiety, Autism, BPD, Depression, PTSD, and Normal/Neutral states.
--   **Visual Insights**: Displays a breakdown of detected emotions in a clean, easy-to-read chart.
+- **Platform Support**: Specifically optimized for analyzing comments on **YouTube**, **Reddit**, and **X (Twitter)**.
+- **Privacy First**: All analysis is done via a secure backend API; no data is stored permanently.
+- **7 Emotion Categories**: Detects ADHD, Anxiety, Autism, BPD, Depression, PTSD, and Normal/Neutral states.
+- **Visual Insights**: Displays a breakdown of detected emotions in a clean, easy-to-read chart.
 
 ## 🛠️ Tech Stack
 
--   **Frontend (Extension)**: HTML, CSS, JavaScript (Manifest V3)
--   **Backend (API)**: Python, Flask, Gunicorn
--   **ML Model**: RoBERTa (Fine-tuned), hosted on [Hugging Face](https://huggingface.co/ekam28/emotion-detector)
--   **Infrastructure**: Docker, Docker Compose
-
-
+- **Frontend (Extension)**: HTML, CSS, JavaScript (Manifest V3)
+- **Backend (API)**: Python, Flask, Gunicorn
+- **ML Model**: RoBERTa (Fine-tuned), hosted on [Hugging Face](https://huggingface.co/ekam28/emotion-detector)
+- **Infrastructure**: Docker, Docker Compose
 
 ## 🖥️ Usage
 
 1.  Navigate to a **YouTube** video, **Reddit** thread, or **X (Twitter)** post with comments.
-2.  Click the **Emotion Detector** icon in your browser toolbar.
+2.  Click the **Detection of Mental Disorders** icon in your browser toolbar.
 3.  The extension will analyze the visible text and display a pie chart of the detected emotions.
 
 ## 🧠 Model Details
 
 The core of this project is a custom fine-tuned RoBERTa model trained to classify text into the following categories:
 
-| Label | Condition |
-| :--- | :--- |
-| `LABEL_0` | ADHD |
-| `LABEL_1` | Anxiety |
-| `LABEL_2` | Autism |
+| Label     | Condition                             |
+| :-------- | :------------------------------------ |
+| `LABEL_0` | ADHD                                  |
+| `LABEL_1` | Anxiety                               |
+| `LABEL_2` | Autism                                |
 | `LABEL_3` | BPD (Borderline Personality Disorder) |
-| `LABEL_4` | Depression |
-| `LABEL_5` | PTSD |
-| `LABEL_6` | Normal |
+| `LABEL_4` | Depression                            |
+| `LABEL_5` | PTSD                                  |
+| `LABEL_6` | Normal                                |
 
 You can view the model directly on Hugging Face: [ekam28/emotion-detector](https://huggingface.co/ekam28/emotion-detector)
 

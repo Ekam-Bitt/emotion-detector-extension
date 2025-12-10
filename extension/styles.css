@@ -266,20 +266,25 @@ h1 {
   display: flex;
   justify-content: center;
   margin: 0 0 20px;
-  flex-wrap: wrap; /* allow buttons to wrap to multiple rows */
-  gap: 6px; /* small gap between wrapped rows */
+  flex-wrap: wrap;
+  /* allow buttons to wrap to multiple rows */
+  gap: 6px;
+  /* small gap between wrapped rows */
 }
 
 .filter-btn {
-  padding: 6px 10px; /* smaller padding so more buttons fit */
-  margin: 0; /* gap handled by container's gap */
+  padding: 6px 10px;
+  /* smaller padding so more buttons fit */
+  margin: 0;
+  /* gap handled by container's gap */
   border: none;
   border-radius: 14px;
   background-color: var(--card);
   color: var(--card-foreground);
   cursor: pointer;
   font-weight: 500;
-  font-size: 12px; /* smaller font */
+  font-size: 12px;
+  /* smaller font */
   transition: all 0.18s ease;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
@@ -290,12 +295,8 @@ h1 {
 }
 
 .filter-btn.active {
-  color: white;
+  color: rgb(19, 101, 215);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.filter-btn[data-filter="all"].active {
-  background-color: var(--primary);
 }
 
 .filter-btn[data-filter="positive"].active {

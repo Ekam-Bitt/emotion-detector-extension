@@ -1,7 +1,7 @@
 {
-  "name": "spectrum-extension",
+  "name": "detection-of-mental-disorders",
   "version": "1.0.0",
-  "description": "Chrome extension for sentiment analysis",
+  "description": "Chrome extension for detection of mental disorders",
   "main": "background.js",
   "scripts": {
     "start": "http-server -p 80"
