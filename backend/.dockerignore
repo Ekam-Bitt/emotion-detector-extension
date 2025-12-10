@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.manifest
+spec/
+test/
+tests/
+build/
+dist/
+*.egg-info/
+.coverage
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
