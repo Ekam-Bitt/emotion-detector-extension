@@ -29,3 +29,6 @@ ENV/
 
 # Logs
 *.log
+
+# Data
+model_cache/
