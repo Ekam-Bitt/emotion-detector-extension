@@ -23,7 +23,7 @@ requests==2.32.5
 safetensors==0.7.0
 setuptools==80.9.0
 sympy==1.14.0
-tokenizers==0.20.3
+tokenizers==0.22.1
 torch==2.5.1
 tqdm==4.67.1
 transformers==4.46.3
