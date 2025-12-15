@@ -9,7 +9,7 @@
         originalIndex: index,
         source,
       }))
-      .filter((item) => item.text && item.text.length > 5)
+      .filter((item) => item.text && item.text.trim().split(/\s+/).length >= 15)
       .map((item) => ({
         ...item,
         text: item.text.slice(0, MAX_LEN),
